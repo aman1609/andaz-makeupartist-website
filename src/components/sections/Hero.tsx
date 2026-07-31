@@ -1,91 +1,160 @@
-import { Sparkles, MessageCircle, ArrowRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 
 export default function Hero() {
   const whatsappMessage = encodeURIComponent(
     "Hi! I'd like to book a makeup session for my special occasion."
   );
-  const whatsappLink = `https://wa.me/918076989577?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/918076989572?text=${whatsappMessage}`;
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80"
-          alt="Bridal Makeup Artist Bengaluru"
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Dark Overlay with Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/75 via-neutral-900/60 to-neutral-900/70 backdrop-blur-[1px]"></div>
+    <section id="home" className="relative min-h-screen flex flex-col overflow-hidden bg-blush">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-48 -left-48 w-[42rem] h-[42rem] rounded-full bg-rose-200/40 blur-3xl"></div>
+        <div className="absolute bottom-0 left-1/4 w-[32rem] h-[32rem] rounded-full bg-gold-300/15 blur-3xl"></div>
       </div>
 
-      {/* Content Container */}
-      <div className="container-custom relative z-10 py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fadeInUp">
+      {/* Main hero area */}
+      <div className="relative flex-1 flex items-center">
+        {/* Artist photo — full-bleed right panel (desktop) */}
+        <div className="absolute inset-y-0 right-0 w-[46vw] hidden lg:block">
+          <img
+            src="/artist.jpg"
+            alt="Andaz — The Makeup Artist"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: '58% 30%' }}
+          />
+          {/* Blend into the blush canvas — kept narrow so the photo stays rich */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(90deg, #f6edf0 0%, rgba(246,237,240,0.45) 12%, rgba(246,237,240,0) 34%)',
+            }}
+            aria-hidden="true"
+          ></div>
+          {/* Warm plum wash to harmonize with the palette */}
+          <div className="absolute inset-0 bg-rose-700/15 mix-blend-multiply" aria-hidden="true"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent" aria-hidden="true"></div>
+          {/* Inset gold hairline frame */}
+          <div className="absolute inset-6 border border-gold-300/50 pointer-events-none" aria-hidden="true"></div>
 
-          {/* Certified Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 backdrop-blur-md border border-white/25 rounded-full text-white text-sm font-medium tracking-wide animate-fadeInDown">
-            <Sparkles size={16} className="text-primary-300" />
-            <span className="uppercase text-xs sm:text-sm">Certified Professional Makeup Artist</span>
+          {/* Caption */}
+          <div className="absolute bottom-12 right-12 text-right">
+            <p className="font-display italic text-5xl text-cream leading-none">Andaz</p>
+            <p className="text-xs uppercase tracking-[0.35em] text-gold-300 mt-3">
+              The Makeup Artist
+            </p>
           </div>
+        </div>
 
-          {/* Main Heading */}
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-tight text-white">
-            Bridal & Occasion<br />
-            <span className="text-primary-300 font-semibold italic">Makeup Artist</span><br />
-            in Bengaluru
-          </h1>
-
-          {/* Subtext */}
-          <p className="text-lg sm:text-xl md:text-2xl font-light text-neutral-200 max-w-2xl mx-auto leading-relaxed">
-            Enhancing your natural beauty for your most special moments
-          </p>
-
-          {/* CTA Button - WhatsApp */}
-          <div className="pt-4">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-400 to-primary-500 hover:from-white hover:to-primary-100 text-neutral-900 font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 border-2 border-transparent hover:border-white"
-            >
-              <MessageCircle size={20} className="transition-transform group-hover:rotate-12" />
-              <span>Book on WhatsApp</span>
-              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
-            </a>
-          </div>
-
-          {/* Stats Section */}
-          <div className="pt-12 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16">
-            <div className="text-center">
-              <div className="font-heading text-4xl sm:text-5xl font-bold text-primary-300 mb-2">500+</div>
-              <div className="text-sm sm:text-base text-neutral-300 uppercase tracking-wider">Happy Brides</div>
+        <div className="container-edit w-full relative z-10 pt-36 pb-16 lg:pb-24">
+          <div className="lg:w-[58%] space-y-8">
+            {/* Availability pill */}
+            <div className="inline-flex items-center gap-3 border border-ink-900/10 bg-white/50 backdrop-blur-sm px-5 py-2.5 animate-rise">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-500 opacity-60"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold-500"></span>
+              </span>
+              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-ink-700">
+                Now booking &mdash; 2026 weddings
+              </span>
             </div>
 
-            <div className="hidden sm:block w-px h-12 bg-white/20"></div>
+            <p className="flex items-center gap-4 animate-rise delay-1">
+              <span className="w-12 h-px bg-gold-500" aria-hidden="true"></span>
+              <span className="eyebrow">Bridal &amp; Occasion Makeup Artistry</span>
+            </p>
 
-            <div className="text-center">
-              <div className="font-heading text-4xl sm:text-5xl font-bold text-primary-300 mb-2">10+</div>
-              <div className="text-sm sm:text-base text-neutral-300 uppercase tracking-wider">Years Experience</div>
+            <h1 className="display-xl text-ink-950 animate-rise delay-1 lg:relative lg:z-20 lg:-mr-40">
+              Beauty,
+              <br />
+              made <span className="italic text-rose-500">timeless.</span>
+            </h1>
+
+            <p className="max-w-md text-base md:text-lg font-light text-ink-500 leading-relaxed animate-rise delay-2">
+              Fresh, certified artistry for the moments you&rsquo;ll remember forever &mdash;
+              from your wedding morning to the editorial spotlight.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-6 pt-2 animate-rise delay-3">
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-ink">
+                Book on WhatsApp
+                <ArrowUpRight size={16} />
+              </a>
+              <a
+                href="#work"
+                className="link-line text-sm uppercase tracking-[0.25em] text-ink-700 hover:text-ink-950 inline-flex items-center gap-2"
+              >
+                Explore work
+                <ArrowDown size={14} />
+              </a>
             </div>
 
-            <div className="hidden sm:block w-px h-12 bg-white/20"></div>
+            {/* Stats */}
+            <div className="flex items-center gap-10 md:gap-14 pt-8 animate-rise delay-4">
+              {[
+                ['Certified', 'Professional artist'],
+                ['Premium', 'Products only'],
+                ['100%', 'Love, guaranteed'],
+              ].map(([num, label], i) => (
+                <div key={label} className="flex items-center gap-10 md:gap-14">
+                  {i > 0 && <span className="w-px h-10 bg-gold-500/40" aria-hidden="true"></span>}
+                  <div>
+                    <div className="font-display text-3xl md:text-4xl text-ink-950">{num}</div>
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-ink-400 mt-1">
+                      {label}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-            <div className="text-center">
-              <div className="font-heading text-4xl sm:text-5xl font-bold text-primary-300 mb-2">100%</div>
-              <div className="text-sm sm:text-base text-neutral-300 uppercase tracking-wider">Satisfaction</div>
+          {/* Artist photo — cinematic band (mobile/tablet) */}
+          <div className="relative mt-14 lg:hidden animate-rise delay-4">
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <img
+                src="/artist.jpg"
+                alt="Andaz — The Makeup Artist"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: '58% 25%' }}
+              />
+              <div className="absolute inset-0 bg-rose-700/15 mix-blend-multiply" aria-hidden="true"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent" aria-hidden="true"></div>
+              <div className="absolute inset-4 border border-gold-300/50 pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute bottom-6 right-6 text-right">
+                <p className="font-display italic text-3xl text-cream leading-none">Andaz</p>
+                <p className="text-[10px] uppercase tracking-[0.35em] text-gold-300 mt-2">
+                  The Makeup Artist
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-primary-300 rounded-full animate-scrollDown"></div>
+        {/* Rotating badge — pinned to the seam between text and photo */}
+        <div className="absolute left-[50%] bottom-24 z-20 w-28 h-28 xl:w-32 xl:h-32 hidden lg:block">
+          <div className="absolute inset-0 rounded-full bg-white/70 backdrop-blur-sm border border-gold-500/40" aria-hidden="true"></div>
+          <svg viewBox="0 0 100 100" className="relative w-full h-full animate-spin-slow">
+            <defs>
+              <path id="badge-circle" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
+            </defs>
+            <text className="fill-gold-600" style={{ fontSize: '9px', letterSpacing: '2.5px' }}>
+              <textPath href="#badge-circle">
+                BRIDAL &middot; PARTY &middot; EDITORIAL &middot;
+              </textPath>
+            </text>
+          </svg>
+          <span className="absolute inset-0 flex items-center justify-center font-display italic text-xl text-ink-950">
+            A.
+          </span>
+        </div>
+
+        {/* Vertical scroll cue */}
+        <div className="hidden xl:flex absolute left-10 bottom-24 z-10 items-center gap-3 [writing-mode:vertical-rl] rotate-180">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-ink-400">Scroll to explore</span>
+          <span className="w-px h-16 bg-gold-500/60" aria-hidden="true"></span>
         </div>
       </div>
     </section>

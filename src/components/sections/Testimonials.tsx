@@ -1,137 +1,120 @@
 'use client';
 
-import { Star } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Reveal from '@/components/ui/Reveal';
 
 const testimonials = [
   {
-    id: 1,
     name: 'Aisha Patel',
     role: 'Bride',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80',
-    rating: 5,
-    text: 'Priya made me feel like a princess on my wedding day! Her attention to detail and understanding of what I wanted was incredible. The makeup lasted throughout my 12-hour wedding ceremony. Highly recommended!',
+    text: 'Andaz made me feel like a princess on my wedding day. The makeup lasted through a 12-hour ceremony — and every photo is stunning.',
   },
   {
-    id: 2,
     name: 'Sneha Reddy',
-    role: 'Party Client',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80',
-    rating: 5,
-    text: 'I\'ve been going to Priya for all my special occasions for the past 2 years. She has an amazing eye for colors and knows exactly what suits each person. Her work is always flawless!',
+    role: 'Party client',
+    text: 'She has an incredible eye for color and knows exactly what suits each person. My party look was flawless — I have already booked her again.',
   },
   {
-    id: 3,
     name: 'Kavya Sharma',
     role: 'Bride',
-    image: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=100&q=80',
-    rating: 5,
-    text: 'Professional, punctual, and incredibly talented! Priya understood my vision perfectly and executed it beautifully. All my wedding photos turned out stunning thanks to her expertise.',
+    text: 'Professional, punctual, incredibly talented. Andaz understood my vision perfectly — my wedding photos turned out beautiful because of her.',
   },
   {
-    id: 4,
     name: 'Meera Krishnan',
     role: 'Model',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80',
-    rating: 5,
-    text: 'As a professional model, I\'ve worked with many makeup artists. Priya stands out for her creativity and professionalism. She knows exactly what works for camera and has enhanced my portfolio significantly.',
+    text: 'I have worked with many makeup artists. Andaz stands out for creativity and professionalism — she knows exactly what works on camera.',
   },
   {
-    id: 5,
-    name: 'Anjali Menon',
-    role: 'Engagement Client',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80',
-    rating: 5,
-    text: 'Priya\'s makeup for my engagement was absolutely perfect! She made me look naturally beautiful and the photos came out amazing. Her warm personality made the whole experience enjoyable.',
-  },
-  {
-    id: 6,
     name: 'Riya Gupta',
     role: 'Bride',
-    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80',
-    rating: 5,
-    text: 'I was so nervous about my bridal makeup, but Priya put me at ease immediately. She listened to all my concerns and created a look that was exactly what I dreamed of. Thank you for making my day special!',
+    text: 'I was so nervous about my bridal makeup, but Andaz put me at ease immediately and created exactly the look I had dreamed of.',
   },
 ];
 
+const ROTATE_MS = 6000;
+
 export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
+
+  const next = useCallback(() => setIndex((i) => (i + 1) % testimonials.length), []);
+  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+
+  useEffect(() => {
+    const timer = setInterval(next, ROTATE_MS);
+    return () => clearInterval(timer);
+  }, [index, next]);
+
+  const current = testimonials[index];
 
   return (
-    <section id="testimonials" className="section-padding bg-gradient-to-br from-primary-50 to-white">
-      <div className="container-custom">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-4">
-            Testimonials
-          </h2>
-          <h3 className="heading-lg mb-6">What My Clients Say</h3>
-          <p className="text-lg text-neutral-600">
-            Don't just take my word for it. Here's what my happy clients have to say 
-            about their experience working with me.
-          </p>
-        </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-            >
-              {/* Stars */}
-              <div className="flex space-x-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    className="fill-primary-500 text-primary-500"
-                  />
-                ))}
-              </div>
-
-              {/* Text */}
-              <p className="text-neutral-700 leading-relaxed mb-6 italic">
-                "{testimonial.text}"
-              </p>
-
-              {/* Author */}
-              <div className="flex items-center space-x-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-14 h-14 rounded-full object-cover ring-2 ring-primary-100"
-                />
-                <div>
-                  <div className="font-semibold text-neutral-900">
-                    {testimonial.name}
-                  </div>
-                  <div className="text-sm text-neutral-600">
-                    {testimonial.role}
-                  </div>
-                </div>
-              </div>
+    <section id="testimonials" className="bg-blush overflow-hidden">
+      <div className="container-edit py-14 md:py-20">
+        <Reveal>
+          <div className="flex items-end justify-between mb-12 md:mb-16">
+            <div>
+              <p className="eyebrow mb-5">Kind words</p>
+              <h2 className="display-lg text-ink-950">
+                From the <span className="italic text-rose-500">chair</span>
+              </h2>
             </div>
-          ))}
-        </div>
 
-        {/* Trust Badges */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div className="space-y-2">
-            <div className="text-4xl font-bold text-primary-600">500+</div>
-            <div className="text-sm text-neutral-600">Happy Clients</div>
+            <div className="hidden sm:flex items-center gap-3">
+              <button
+                onClick={prev}
+                aria-label="Previous testimonial"
+                className="w-12 h-12 border border-ink-900/20 text-ink-950 flex items-center justify-center hover:bg-ink-950 hover:text-cream transition-all duration-300"
+              >
+                <ArrowLeft size={18} />
+              </button>
+              <button
+                onClick={next}
+                aria-label="Next testimonial"
+                className="w-12 h-12 border border-ink-900/20 text-ink-950 flex items-center justify-center hover:bg-ink-950 hover:text-cream transition-all duration-300"
+              >
+                <ArrowRight size={18} />
+              </button>
+            </div>
           </div>
-          <div className="space-y-2">
-            <div className="text-4xl font-bold text-primary-600">100%</div>
-            <div className="text-sm text-neutral-600">Satisfaction Rate</div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <figure
+            key={index}
+            className="max-w-4xl animate-rise bg-white/70 border border-gold-500/30 p-8 md:p-12"
+          >
+            <blockquote className="font-display text-3xl md:text-5xl leading-[1.15] text-ink-900">
+              &ldquo;{current.text}&rdquo;
+            </blockquote>
+            <figcaption className="mt-10 flex items-center gap-4">
+              <span className="w-10 h-px bg-gold-600" aria-hidden="true"></span>
+              <span className="text-sm uppercase tracking-[0.2em] text-ink-950">{current.name}</span>
+              <span className="text-sm text-ink-400 italic font-display">{current.role}</span>
+            </figcaption>
+          </figure>
+        </Reveal>
+
+        {/* Dots + mobile arrows */}
+        <div className="mt-12 flex items-center gap-6">
+          <div className="flex gap-2.5">
+            {testimonials.map((t, i) => (
+              <button
+                key={t.name}
+                onClick={() => setIndex(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                className={`h-1.5 transition-all duration-500 ${
+                  i === index ? 'w-10 bg-gold-600' : 'w-4 bg-ink-900/15 hover:bg-ink-900/35'
+                }`}
+              />
+            ))}
           </div>
-          <div className="space-y-2">
-            <div className="text-4xl font-bold text-primary-600">300+</div>
-            <div className="text-sm text-neutral-600">Bridal Makeups</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-4xl font-bold text-primary-600">8+</div>
-            <div className="text-sm text-neutral-600">Years Experience</div>
+          <div className="flex sm:hidden items-center gap-2 ml-auto">
+            <button onClick={prev} aria-label="Previous" className="p-2 border border-ink-900/20 text-ink-950">
+              <ArrowLeft size={16} />
+            </button>
+            <button onClick={next} aria-label="Next" className="p-2 border border-ink-900/20 text-ink-950">
+              <ArrowRight size={16} />
+            </button>
           </div>
         </div>
       </div>

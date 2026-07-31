@@ -1,29 +1,38 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Poppins } from "next/font/google";
+import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const poppins = Poppins({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-poppins",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-jost",
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Andaz Raj - Professional Makeup Artist in Bengaluru",
-  description: "Transform your look with Bengaluru's premier makeup artist. Specializing in bridal, party, and editorial makeup. Book your session today!",
-  keywords: ["makeup artist", "bridal makeup", "Bengaluru", "wedding makeup", "party makeup", "professional makeup"],
-  authors: [{ name: "Andaz Raj" }],
+  title: "Andaz — The Makeup Artist | Bridal & Occasion Makeup",
+  description:
+    "Certified bridal, party, and occasion makeup artistry with premium products and personal attention. Beauty, made timeless — book your session with Andaz.",
+  keywords: [
+    "makeup artist",
+    "bridal makeup",
+    "wedding makeup",
+    "party makeup",
+    "editorial makeup",
+    "engagement makeup",
+  ],
+  authors: [{ name: "Andaz" }],
   openGraph: {
-    title: "Andaz Raj - Professional Makeup Artist",
-    description: "Transform your look with Bengaluru's premier makeup artist",
+    title: "Andaz — The Makeup Artist",
+    description: "Editorial-grade makeup artistry. Beauty, made timeless.",
     type: "website",
   },
 };
@@ -34,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
       <body>{children}</body>
     </html>
   );

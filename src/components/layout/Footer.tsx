@@ -1,99 +1,88 @@
-import { Instagram, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Facebook } from 'lucide-react';
 
-const socialLinks = [
-  { icon: Instagram, href: 'https://www.instagram.com/rajandaz574/', label: 'Instagram' },
-  { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
-];
-
-const quickLinks = [
-  { name: 'About', href: '#about' },
+const footerLinks = [
+  { name: 'Portfolio', href: '#work' },
   { name: 'Services', href: '#services' },
-  { name: 'Portfolio', href: '#portfolio' },
+  { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];
+
+const marqueeItems = ['Bridal', 'Party', 'Editorial', 'Traditional', 'Engagement', 'HD Makeup'];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-white">
-      <div className="container-custom py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-heading font-bold text-primary-400">
-              Andaz Raj
-            </h3>
-            <p className="text-neutral-400 text-sm leading-relaxed">
-              Professional makeup artist in Bengaluru, specializing in bridal and special occasion makeup.
-            </p>
-            <div className="flex space-x-4 pt-2">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-primary-600 flex items-center justify-center transition-colors"
-                  aria-label={social.label}
+    <footer className="bg-ink-950 text-cream">
+      {/* Marquee strip */}
+      <div className="border-b border-cream/10 py-4 overflow-hidden select-none" aria-hidden="true">
+        <div className="flex w-max animate-marquee">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0">
+              {marqueeItems.map((item) => (
+                <span
+                  key={`${copy}-${item}`}
+                  className="font-display italic text-2xl md:text-3xl text-cream/90 px-8 whitespace-nowrap"
                 >
-                  <social.icon size={18} />
-                </a>
+                  {item} <span className="text-gold-400 not-italic px-6">&#10022;</span>
+                </span>
               ))}
             </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="container-edit py-16 md:py-20">
+        {/* Giant wordmark */}
+        <a
+          href="#home"
+          className="block font-display leading-none text-cream hover:text-rose-300 transition-colors duration-500"
+          style={{ fontSize: 'clamp(3.5rem, 13vw, 11rem)' }}
+        >
+          Andaz<span className="italic text-gold-400">.</span>
+        </a>
+        <p className="mt-4 text-[10px] md:text-xs uppercase tracking-[0.4em] text-gold-400">
+          The Makeup Artist
+        </p>
+
+        <div className="mt-12 md:mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+          <div className="flex flex-wrap gap-x-10 gap-y-3">
+            {footerLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="link-line text-xs uppercase tracking-[0.25em] text-cream/60 hover:text-cream transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-3 text-sm text-neutral-400">
-              <li>Bridal Makeup</li>
-              <li>Party Makeup</li>
-              <li>Editorial Makeup</li>
-              <li>HD Makeup</li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3 text-sm text-neutral-400">
-              <li className="flex items-start space-x-3">
-                <MapPin size={18} className="mt-0.5 flex-shrink-0 text-primary-400" />
-                <span>Indiranagar, Bengaluru, Karnataka 560038</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Phone size={18} className="flex-shrink-0 text-primary-400" />
-                <span>+91 8076989577</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Mail size={18} className="flex-shrink-0 text-primary-400" />
-                <span>rajandaz574@gmail.com</span>
-              </li>
-            </ul>
+          <div className="flex items-center gap-5">
+            <a
+              href="https://www.instagram.com/andazthemakeupartist"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="w-11 h-11 border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-ink-950 transition-all duration-300"
+            >
+              <Instagram size={17} />
+            </a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="w-11 h-11 border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-ink-950 transition-all duration-300"
+            >
+              <Facebook size={17} />
+            </a>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-neutral-800 text-center text-sm text-neutral-500">
-          <p>&copy; {currentYear} Andaz Raj Makeup Artist. All rights reserved.</p>
+        <div className="mt-12 pt-8 border-t border-cream/10 flex flex-col sm:flex-row justify-between gap-3 text-xs text-cream/40 tracking-wide">
+          <p>&copy; {currentYear} Andaz &mdash; The Makeup Artist. All rights reserved.</p>
+          <p>Bridal &amp; occasion makeup &mdash; by appointment</p>
         </div>
       </div>
     </footer>

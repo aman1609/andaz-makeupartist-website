@@ -1,28 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Instagram, Facebook, Send, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, Send } from 'lucide-react';
+import Reveal from '@/components/ui/Reveal';
 
-const contactInfo = [
-  {
-    icon: Phone,
-    title: 'Phone',
-    value: '+91 8076989577',
-    href: 'tel:+918076989577',
-  },
-  {
-    icon: Mail,
-    title: 'Email',
-    value: 'rajandaz574@gmail.com',
-    href: 'mailto:rajandaz574@gmail.com',
-  },
-  {
-    icon: MapPin,
-    title: 'Location',
-    value: 'Indiranagar, Bengaluru',
-    href: '#',
-  },
-];
+const inputClass =
+  'w-full bg-transparent border-b border-ink-200 focus:border-gold-600 py-3 outline-none transition-colors font-light text-ink-900 placeholder:text-ink-300';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -33,225 +16,231 @@ export default function Contact() {
     date: '',
     message: '',
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    alert('Thank you for your interest! I will get back to you soon.');
+    // Deliver the enquiry via WhatsApp — the site has no backend to store it
+    const lines = [
+      `Hi Andaz! I'd like to book a session.`,
+      `Name: ${formData.name}`,
+      `Phone: ${formData.phone}`,
+      `Email: ${formData.email}`,
+      `Occasion: ${formData.service}`,
+      formData.date && `Preferred date: ${formData.date}`,
+      formData.message && `Details: ${formData.message}`,
+    ].filter(Boolean);
+    window.open(
+      `https://wa.me/918076989572?text=${encodeURIComponent(lines.join('\n'))}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+    setSubmitted(true);
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const whatsappMessage = encodeURIComponent(
     'Hi Andaz! I would like to book a makeup session. Can we discuss the details?'
   );
-  const whatsappLink = `https://wa.me/918076989577?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/918076989572?text=${whatsappMessage}`;
 
   return (
-    <section id="contact" className="section-padding bg-white">
-      <div className="container-custom">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-4">
-            Contact
-          </h2>
-          <h3 className="heading-lg mb-6">Let's Create Something Beautiful</h3>
-          <p className="text-lg text-neutral-600">
-            Ready to book your session? Get in touch and let's discuss how I can help 
-            you look and feel your absolute best.
-          </p>
-        </div>
+    <section id="contact" className="bg-blush">
+      <div className="container-edit pt-16 md:pt-24 pb-24 md:pb-32">
+        <div className="grid lg:grid-cols-12 gap-14 lg:gap-20">
+          {/* Left — big invitation */}
+          <div className="lg:col-span-6 space-y-10">
+            <Reveal>
+              <p className="eyebrow !text-gold-600 mb-5">Contact</p>
+              <h2 className="display-lg text-ink-950">
+                Let&rsquo;s create something
+                <br />
+                <span className="italic text-rose-500">beautiful.</span>
+              </h2>
+            </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
-                <a
-                  key={index}
-                  href={info.href}
-                  className="flex items-start space-x-4 p-6 rounded-2xl bg-neutral-50 hover:bg-primary-50 transition-colors group"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-primary-100 group-hover:bg-primary-200 flex items-center justify-center flex-shrink-0 transition-colors">
-                    <info.icon className="text-primary-600" size={24} />
-                  </div>
-                  <div>
-                    <div className="text-sm text-neutral-600 mb-1">{info.title}</div>
-                    <div className="font-semibold text-neutral-900">{info.value}</div>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {/* WhatsApp CTA */}
-            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 text-white">
-              <div className="flex items-center space-x-3 mb-4">
-                <MessageCircle size={32} />
-                <h4 className="text-2xl font-bold">Quick Chat on WhatsApp</h4>
-              </div>
-              <p className="mb-6 opacity-90">
-                Get instant responses to your queries. Chat with me directly on WhatsApp!
+            <Reveal delay={100}>
+              <p className="text-ink-500 font-light leading-relaxed max-w-md">
+                Tell me about your day — the occasion, the outfit, the mood. I&rsquo;ll take
+                care of the rest. For the fastest response, message me on WhatsApp.
               </p>
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-8 py-4 bg-white text-green-600 hover:bg-neutral-50 rounded-full font-semibold transition-colors shadow-xl"
-              >
-                <MessageCircle size={20} className="mr-2" />
-                Chat on WhatsApp
-              </a>
-            </div>
+            </Reveal>
 
-            {/* Social Links */}
-            <div className="space-y-4">
-              <h4 className="font-semibold text-neutral-900">Follow Me</h4>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.instagram.com/rajandaz574/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center hover:shadow-lg transition-shadow"
-                  aria-label="Instagram"
-                >
-                  <Instagram size={20} />
-                </a>
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:shadow-lg transition-shadow"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={20} />
-                </a>
-              </div>
-            </div>
+            <Reveal delay={150}>
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-ink">
+                Chat on WhatsApp
+                <ArrowUpRight size={16} />
+              </a>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <dl className="space-y-6 pt-6 border-t border-ink-200 max-w-md">
+                {[
+                  ['Phone', '+91 8076989572', 'tel:+918076989572'],
+                  ['Email', 'rajandaz574@gmail.com', 'mailto:rajandaz574@gmail.com'],
+                  ['Studio', 'By appointment · Travel available', undefined],
+                  ['Instagram', '@andazthemakeupartist', 'https://www.instagram.com/andazthemakeupartist'],
+                ].map(([label, value, href]) => (
+                  <div key={label} className="flex items-baseline gap-6">
+                    <dt className="text-[10px] uppercase tracking-[0.25em] text-ink-400 w-20 shrink-0">
+                      {label}
+                    </dt>
+                    <dd>
+                      {href ? (
+                        <a
+                          href={href}
+                          className="link-line font-display text-xl text-ink-950"
+                          {...(href.startsWith('http')
+                            ? { target: '_blank', rel: 'noopener noreferrer' }
+                            : {})}
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <span className="font-display text-xl text-ink-950">{value}</span>
+                      )}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-neutral-50 rounded-2xl p-8">
-            <h4 className="text-2xl font-bold mb-6">Send Me a Message</h4>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-2">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-                  placeholder="Enter your name"
-                />
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-                    placeholder="your@email.com"
-                  />
+          {/* Right — minimal form */}
+          <div className="lg:col-span-6">
+            <Reveal delay={150}>
+              {submitted ? (
+                <div className="h-full flex flex-col justify-center items-start gap-4 bg-white/70 border border-gold-500/30 p-10 md:p-14">
+                  <p className="font-display italic text-4xl text-ink-950">Thank you.</p>
+                  <p className="text-ink-500 font-light">
+                    Your enquiry has opened in WhatsApp — just hit send there, and
+                    I&rsquo;ll get back to you within a day.
+                  </p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-8 bg-white/70 border border-gold-500/30 p-8 md:p-12">
+                  <div className="grid sm:grid-cols-2 gap-8">
+                    <div>
+                      <label htmlFor="name" className="eyebrow !text-ink-400 block mb-1">
+                        Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={inputClass}
+                        placeholder="Your name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="eyebrow !text-ink-400 block mb-1">
+                        Phone *
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className={inputClass}
+                        placeholder="+91 98765 43210"
+                      />
+                    </div>
+                  </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-2">
-                    Phone *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
-              </div>
+                  <div>
+                    <label htmlFor="email" className="eyebrow !text-ink-400 block mb-1">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={inputClass}
+                      placeholder="your@email.com"
+                    />
+                  </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="service" className="block text-sm font-medium text-neutral-700 mb-2">
-                    Service *
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    required
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="bridal">Bridal Makeup</option>
-                    <option value="party">Party Makeup</option>
-                    <option value="editorial">Editorial</option>
-                    <option value="hd">HD Makeup</option>
-                    <option value="engagement">Engagement</option>
-                    <option value="lessons">Makeup Lessons</option>
-                  </select>
-                </div>
+                  <div className="grid sm:grid-cols-2 gap-8">
+                    <div>
+                      <label htmlFor="service" className="eyebrow !text-ink-400 block mb-1">
+                        Occasion *
+                      </label>
+                      <select
+                        id="service"
+                        name="service"
+                        required
+                        value={formData.service}
+                        onChange={handleChange}
+                        className={`${inputClass} cursor-pointer`}
+                      >
+                        <option value="">Select an occasion</option>
+                        <option value="bridal">Bridal</option>
+                        <option value="party">Party</option>
+                        <option value="editorial">Editorial / Photoshoot</option>
+                        <option value="engagement">Engagement</option>
+                        <option value="hd">HD Makeup</option>
+                        <option value="lessons">Makeup Lessons</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="date" className="eyebrow !text-ink-400 block mb-1">
+                        Date
+                      </label>
+                      <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
 
-                <div>
-                  <label htmlFor="date" className="block text-sm font-medium text-neutral-700 mb-2">
-                    Preferred Date
-                  </label>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-                  />
-                </div>
-              </div>
+                  <div>
+                    <label htmlFor="message" className="eyebrow !text-ink-400 block mb-1">
+                      Your story
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={3}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className={`${inputClass} resize-none`}
+                      placeholder="Tell me about the occasion..."
+                    />
+                  </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all resize-none"
-                  placeholder="Tell me about your requirements..."
-                />
-              </div>
-
-              <button type="submit" className="btn-primary w-full group">
-                Send Message
-                <Send size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
+                  <div className="space-y-3">
+                    <button type="submit" className="btn-ink w-full sm:w-auto">
+                      Send via WhatsApp
+                      <Send size={15} />
+                    </button>
+                    <p className="text-xs text-ink-400 font-light">
+                      Opens WhatsApp with your details pre-filled — nothing is stored on this site.
+                    </p>
+                  </div>
+                </form>
+              )}
+            </Reveal>
           </div>
         </div>
       </div>
+      <div className="bridge-bottom" aria-hidden="true"></div>
     </section>
   );
 }

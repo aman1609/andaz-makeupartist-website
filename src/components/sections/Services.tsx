@@ -1,147 +1,151 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, Sparkles, Camera, Star, Crown, Palette } from 'lucide-react';
+import { Plus, ArrowUpRight } from 'lucide-react';
+import Reveal from '@/components/ui/Reveal';
 
 const services = [
   {
-    icon: Crown,
     title: 'Bridal Makeup',
-    description: 'Make your special day unforgettable with flawless bridal makeup that lasts all day.',
+    description:
+      'Your wedding morning, handled with calm and craft. HD makeup that photographs beautifully and lasts from muhurtham to midnight.',
     features: ['Pre-bridal consultation', 'Trial session', 'HD makeup', 'Hairstyling included'],
-    price: 'Starting from ₹25,000',
-    popular: true,
+    price: 'from ₹15,000',
   },
   {
-    icon: Sparkles,
     title: 'Party Makeup',
-    description: 'Stand out at any event with glamorous makeup perfect for parties and celebrations.',
-    features: ['Customized look', 'Long-lasting', 'Touch-up kit', 'Hairstyling available'],
-    price: 'Starting from ₹8,000',
-    popular: false,
+    description:
+      'Glamour tuned to the occasion — a look that stands out in the room and in every photograph.',
+    features: ['Customized look', 'Long-lasting wear', 'Touch-up kit', 'Hairstyling available'],
+    price: 'from ₹5,000',
   },
   {
-    icon: Camera,
     title: 'Editorial & Photoshoot',
-    description: 'Professional makeup for fashion shoots, portfolios, and creative projects.',
-    features: ['Camera-ready finish', 'Multiple looks', 'Collaboration with photographers', 'Portfolio building'],
-    price: 'Starting from ₹12,000',
-    popular: false,
+    description:
+      'Camera-first artistry for fashion shoots, portfolios, and creative collaborations.',
+    features: ['Camera-ready finish', 'Multiple looks', 'On-set collaboration', 'Portfolio building'],
+    price: 'from ₹7,000',
   },
   {
-    icon: Star,
-    title: 'HD Makeup',
-    description: 'High-definition makeup that looks perfect both in person and on camera.',
-    features: ['Airbrushed finish', 'Waterproof', 'Picture perfect', 'All occasions'],
-    price: 'Starting from ₹10,000',
-    popular: false,
-  },
-  {
-    icon: Heart,
     title: 'Engagement Makeup',
-    description: 'Look radiant for your engagement ceremony with elegant and romantic makeup.',
-    features: ['Natural glow', 'Coordinated with outfit', 'Hairstyling', 'Touch-ups'],
-    price: 'Starting from ₹15,000',
-    popular: false,
+    description:
+      'Radiant, romantic, and coordinated with your outfit — for the evening the story begins.',
+    features: ['Natural glow', 'Outfit coordination', 'Hairstyling', 'Touch-ups'],
+    price: 'from ₹9,000',
   },
   {
-    icon: Palette,
+    title: 'HD Makeup',
+    description:
+      'An airbrushed, waterproof finish that looks flawless in person and in high definition.',
+    features: ['Airbrushed finish', 'Waterproof', 'Picture perfect', 'All occasions'],
+    price: 'from ₹6,000',
+  },
+  {
     title: 'Makeup Lessons',
-    description: 'Learn professional makeup techniques with personalized one-on-one sessions.',
+    description:
+      'One-on-one sessions to master your own face — techniques, products, and practice.',
     features: ['Personalized training', 'Product recommendations', 'Technique practice', 'Video tutorials'],
-    price: 'Starting from ₹5,000',
-    popular: false,
+    price: 'from ₹3,000',
   },
 ];
 
 export default function Services() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="services" className="section-padding bg-neutral-50">
-      <div className="container-custom">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-4">
-            Services
-          </h2>
-          <h3 className="heading-lg mb-6">
-            Transformative Beauty Services
-          </h3>
-          <p className="text-lg text-neutral-600">
-            From bridal perfection to everyday glam, I offer a range of professional 
-            makeup services tailored to your unique needs and style.
-          </p>
-        </div>
-
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className={`card p-8 relative cursor-pointer transform transition-all duration-300 ${
-                hoveredIndex === index ? 'scale-105 shadow-2xl' : ''
-              }`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              {service.popular && (
-                <div className="absolute -top-4 right-8 bg-primary-600 text-white px-4 py-1 rounded-full text-xs font-semibold shadow-lg">
-                  Most Popular
-                </div>
-              )}
-
-              <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600 mb-6">
-                <service.icon size={32} />
-              </div>
-
-              <h4 className="text-xl font-bold text-neutral-900 mb-3">
-                {service.title}
-              </h4>
-
-              <p className="text-neutral-600 mb-6 leading-relaxed">
-                {service.description}
-              </p>
-
-              <ul className="space-y-3 mb-6">
-                {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start space-x-2">
-                    <span className="text-primary-600 mt-1">✓</span>
-                    <span className="text-sm text-neutral-600">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="pt-6 border-t border-neutral-200">
-                <div className="text-2xl font-bold text-primary-600 mb-4">
-                  {service.price}
-                </div>
-                <a
-                  href="#contact"
-                  className="inline-block w-full text-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-medium transition-colors"
-                >
-                  Book Now
+    <section id="services" className="py-14 md:py-16 bg-blush">
+      <div className="container-edit">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left — sticky header */}
+          <div className="lg:col-span-4">
+            <Reveal>
+              <div className="lg:sticky lg:top-32 space-y-6">
+                <p className="eyebrow">Services</p>
+                <h2 className="display-lg text-ink-950">
+                  The <span className="italic text-rose-500">craft</span>,<br />
+                  by occasion
+                </h2>
+                <p className="text-ink-500 font-light leading-relaxed max-w-sm">
+                  Every service begins with a conversation about you — your features, your
+                  outfit, your day. Not sure where to start? Book a free consultation.
+                </p>
+                <a href="#contact" className="btn-outline">
+                  Free consultation
+                  <ArrowUpRight size={16} />
                 </a>
               </div>
-            </div>
-          ))}
-        </div>
+            </Reveal>
+          </div>
 
-        {/* CTA Section */}
-        <div className="mt-16 text-center bg-gradient-to-r from-primary-600 to-primary-700 rounded-3xl p-12 text-white">
-          <h3 className="text-3xl font-bold mb-4">
-            Not Sure Which Service is Right for You?
-          </h3>
-          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-            Book a free consultation and let's discuss your beauty goals. 
-            I'll help you choose the perfect service for your needs.
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-primary-600 hover:bg-neutral-50 rounded-full font-semibold transition-colors shadow-xl"
-          >
-            Schedule Free Consultation
-          </a>
+          {/* Right — numbered accordion */}
+          <div className="lg:col-span-8">
+            {services.map((service, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <Reveal key={service.title} delay={index * 60}>
+                  <div className="border-t border-ink-900/10 last:border-b">
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      className="w-full flex items-center gap-6 py-7 md:py-8 text-left group"
+                      aria-expanded={isOpen}
+                    >
+                      <span className="font-display italic text-lg text-ink-300 w-10 shrink-0">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="font-display text-2xl md:text-4xl text-ink-950 flex-1 group-hover:italic group-hover:text-rose-500 transition-colors duration-300">
+                        {service.title}
+                      </span>
+                      <span className="hidden sm:block text-xs uppercase tracking-[0.2em] text-ink-500">
+                        {service.price}
+                      </span>
+                      <Plus
+                        size={20}
+                        className={`shrink-0 text-ink-400 transition-transform duration-500 ${
+                          isOpen ? 'rotate-45' : ''
+                        }`}
+                      />
+                    </button>
+
+                    <div
+                      className={`grid transition-all duration-500 ease-out ${
+                        isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="pb-8 pl-16 pr-4 space-y-5">
+                          <p className="text-ink-500 font-light leading-relaxed max-w-xl">
+                            {service.description}
+                          </p>
+                          <ul className="flex flex-wrap gap-x-8 gap-y-2">
+                            {service.features.map((feature) => (
+                              <li
+                                key={feature}
+                                className="text-xs uppercase tracking-[0.15em] text-ink-700 flex items-center gap-2"
+                              >
+                                <span className="w-1 h-1 bg-gold-600 rounded-full" />
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="flex items-center gap-6 pt-1">
+                            <span className="sm:hidden text-xs uppercase tracking-[0.2em] text-ink-500">
+                              {service.price}
+                            </span>
+                            <a
+                              href="#contact"
+                              className="link-line text-xs uppercase tracking-[0.25em] text-gold-600"
+                            >
+                              Book this service &rarr;
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
