@@ -240,7 +240,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      <div className="bridge-bottom" aria-hidden="true"></div>
     </section>
   );
 }

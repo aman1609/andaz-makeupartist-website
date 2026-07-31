@@ -181,14 +181,12 @@ export default function Portfolio() {
                     {item.category}
                   </p>
                 </div>
-                <a
-                  href="#contact"
-                  aria-label={`Book a ${item.title} session`}
-                  title="Book this look"
-                  className="w-10 h-10 shrink-0 rounded-full border border-cream/40 flex items-center justify-center text-cream transition-all duration-300 hover:bg-cream hover:text-ink-950 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto"
+                <span
+                  aria-hidden="true"
+                  className="w-10 h-10 shrink-0 rounded-full border border-cream/40 flex items-center justify-center text-cream transition-all duration-300 group-hover:bg-cream group-hover:text-ink-950"
                 >
                   <ArrowUpRight size={16} />
-                </a>
+                </span>
               </figcaption>
             </figure>
           ))}
